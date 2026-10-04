@@ -1,0 +1,7 @@
+{
+  "name": "Học Tiếng Trung - Học Từ Vựng & Luyện Thi AI",
+  "description": "Website học từ vựng tiếng Trung đơn giản với Flashcards, trắc nghiệm, luyện viết chữ Hán và trợ lý AI thông minh.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
