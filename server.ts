@@ -1,5 +1,4 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
@@ -690,11 +689,14 @@ async function startServer() {
       res.sendFile(path.resolve(process.cwd(), 'dist', 'index.html'));
     });
   } else {
-    const vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: 'spa',
-    });
-    app.use(vite.middlewares);
+const { createServer: createViteServer } = await import('vite');
+
+const vite = await createViteServer({
+  server: { middlewareMode: true },
+  appType: 'spa',
+});
+
+app.use(vite.middlewares);
   }
 
   app.listen(PORT, '0.0.0.0', () => {
