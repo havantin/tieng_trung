@@ -3,8 +3,7 @@ import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
-import { db, User } from './server/db.js';
-
+import { db, type User } from './server/db.ts';
 dotenv.config();
 
 const app = express();
