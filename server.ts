@@ -685,16 +685,33 @@ async function startServer() {
 
   if (isProd) {
     app.use(express.static(path.resolve(process.cwd(), 'dist')));
+
     app.get('*', (_req, res) => {
       res.sendFile(path.resolve(process.cwd(), 'dist', 'index.html'));
     });
   } else {
-const { createServer: createViteServer } = await import('vite');
+    const { createServer: createViteServer } = await import('vite');
 
-const vite = await createViteServer({
-  server: { middlewareMode: true },
-  appType: 'spa',
-});
+    const vite = await createViteServer({
+      server: { middlewareMode: true },
+      appType: 'spa',
+    });
+
+    app.use(vite.middlewares);
+  }
+
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
+
+export default app;
+
+if (!process.env.VERCEL) {
+  startServer().catch((err) => {
+    console.error('Failed to start server:', err);
+  });
+}
 
 app.use(vite.middlewares);
   }
